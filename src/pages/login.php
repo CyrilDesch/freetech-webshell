@@ -4,7 +4,7 @@
     <div class="game-wrapper" id="selection-screen">
         <div class="game-header">
             <h1 class="game-title">⚡ LIBERATION ARCADE ⚡</h1>
-            <p class="game-quote" style="color: #00ff41; font-size: 1.3em; margin: 1.5rem 0; text-shadow: 0 0 10px #00ff41;">
+            <p class="game-quote" style="color: #00ff41; font-size: 1em; margin: 0.5rem 0; text-shadow: 0 0 10px #00ff41;">
                 "Ce n'est qu'après avoir tout perdu qu'on est libre de tout faire"
             </p>
         </div>
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="back-btn" style="margin-top: 2rem;">
+        <div class="back-btn" style="margin-top: 1rem;">
             <a href="?page=home" class="btn btn-back">
                 <span>⚡</span>
                 RETOUR AU TERMINAL

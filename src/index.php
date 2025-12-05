@@ -4,14 +4,14 @@ ob_start();
 
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 'cyberpunk';
 
-$page = isset($_GET['page']) ? $_GET['page'] : ($mode === 'classic' ? 'classic-home' : 'home');
+$page = isset($_GET['page']) ? $_GET['page'] : ($mode === 'classic' ? 'classic-home' : 'terminal');
 
 $cyberpunkPages = ['home', 'music', 'login', 'terminal'];
 $classicPages = ['classic-home', 'classic-about', 'classic-solutions'];
 $allowedPages = array_merge($cyberpunkPages, $classicPages);
 
 if (!in_array($page, $allowedPages)) {
-    $page = $mode === 'classic' ? 'classic-home' : 'home';
+    $page = $mode === 'classic' ? 'classic-home' : 'terminal';
 }
 ?>
 <!DOCTYPE html>
