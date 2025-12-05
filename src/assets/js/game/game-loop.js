@@ -1,7 +1,5 @@
-// Game Loop and Controls
 
 function startGameLoop() {
-    // Keyboard controls
     const keys = {};
     
     document.addEventListener('keydown', (e) => {
@@ -22,7 +20,13 @@ function startGameLoop() {
     function update() {
         if (gameState !== 'playing') return;
         
-        // Move player
+        const now = Date.now();
+        if (enemySpawnQueue.length > 0 && now - lastSpawnTime > SPAWN_INTERVAL) {
+            const enemyToSpawn = enemySpawnQueue.shift();
+            enemies.push(enemyToSpawn);
+            lastSpawnTime = now;
+        }
+        
         const speed = selectedShip.speed;
         if (keys['ArrowLeft'] && playerX > 0) {
             playerX -= speed;
@@ -31,17 +35,14 @@ function startGameLoop() {
             playerX += speed;
         }
         
-        // Move bullets
         bullets = bullets.filter(b => {
             b.y -= BULLET_SPEED;
             return b.y > 0;
         });
         
-        // Move power-ups
         powerUps = powerUps.filter(p => {
             p.y += 2;
             
-            // Check collection
             if (p.x > playerX - 20 && p.x < playerX + PLAYER_SIZE + 20 &&
                 p.y > playerY - 20 && p.y < playerY + PLAYER_SIZE + 20) {
                 if (p.type === 'ammo') {
@@ -57,7 +58,6 @@ function startGameLoop() {
             return p.y < CANVAS_HEIGHT;
         });
         
-        // Check bullet-enemy collisions
         bullets = bullets.filter(bullet => {
             for (let enemy of enemies) {
                 if (enemy.alive && 
@@ -66,7 +66,6 @@ function startGameLoop() {
                     enemy.alive = false;
                     score += enemy.points;
                     
-                    // Spawn power-up
                     if (Math.random() > 0.7) {
                         const type = Math.random() > 0.5 ? 'ammo' : 'shield';
                         powerUps.push({ x: enemy.x + ENEMY_WIDTH / 2, y: enemy.y, type });
@@ -77,59 +76,54 @@ function startGameLoop() {
             }
             return true;
         });
-        
-        // Check if wave cleared
-        if (enemies.every(e => !e.alive)) {
-            wave++;
-            ammo = Math.min(ammo + 15, maxAmmo);
-            setTimeout(() => {
-                createWave(wave);
-                enemyDirection = 1;
-            }, 1000);
-        }
-        
-        // Move enemies
-        let shouldMoveDown = false;
         const aliveEnemies = enemies.filter(e => e.alive);
-        
-        if (aliveEnemies.length > 0) {
-            const leftmost = Math.min(...aliveEnemies.map(e => e.x));
-            const rightmost = Math.max(...aliveEnemies.map(e => e.x + ENEMY_WIDTH));
-            
-            if (rightmost >= CANVAS_WIDTH - 10 && enemyDirection === 1) {
-                enemyDirection = -1;
-                shouldMoveDown = true;
-            } else if (leftmost <= 10 && enemyDirection === -1) {
-                enemyDirection = 1;
-                shouldMoveDown = true;
-            }
-        }
-        
-        const enemySpeed = 0.3 + Math.floor(wave / 6) * 0.3;
-        enemies.forEach(enemy => {
-            enemy.x += enemyDirection * enemySpeed;
-            if (shouldMoveDown) enemy.y += 20;
-        });
-        
-        // Check if enemies reached player
-        if (aliveEnemies.some(e => e.y + ENEMY_HEIGHT > playerY - 10)) {
-            if (hasShield) {
-                hasShield = false;
-                enemies.forEach(e => e.y -= 100);
-            } else {
-                lives--;
-                if (lives <= 0) {
+        for (let enemy of enemies) {
+            if (enemy.alive) {
+                enemy.time++;
+                
+                enemy.y += enemy.verticalSpeed;
+                
+                const oscillation = Math.sin(enemy.time * enemy.oscillationFreq + enemy.oscillationPhase) * enemy.oscillationAmp;
+                enemy.x += enemy.horizontalSpeed;
+                
+                const prevOscillation = Math.sin((enemy.time - 1) * enemy.oscillationFreq + enemy.oscillationPhase) * enemy.oscillationAmp;
+                enemy.x += (oscillation - prevOscillation) * 0.1;
+                
+                if (enemy.x <= 0) {
+                    enemy.x = 0;
+                    enemy.horizontalSpeed = Math.abs(enemy.horizontalSpeed);
+                } else if (enemy.x + ENEMY_WIDTH >= CANVAS_WIDTH) {
+                    enemy.x = CANVAS_WIDTH - ENEMY_WIDTH;
+                    enemy.horizontalSpeed = -Math.abs(enemy.horizontalSpeed);
+                }
+                
+                if (enemy.y + ENEMY_HEIGHT >= CANVAS_HEIGHT) {
                     gameOver();
-                } else {
-                    enemies.forEach(e => e.y = Math.max(40, e.y - 150));
+                    return;
                 }
             }
         }
         
-        // Update HUD
+        if (!waveTransitioning && enemySpawnQueue.length === 0 && enemies.length > 0 && enemies.every(e => !e.alive)) {
+            waveTransitioning = true;
+            
+            if (wave >= requiredWaves) {
+                setTimeout(() => {
+                    gameVictory();
+                }, 500);
+                return;
+            }
+            
+            wave++;
+            ammo = Math.min(ammo + 15, maxAmmo);
+            setTimeout(() => {
+                createWave(wave);
+                waveTransitioning = false;
+            }, 1000);
+        }
+        
         updateHUD();
         
-        // Draw
         draw();
         
         gameLoop = requestAnimationFrame(update);

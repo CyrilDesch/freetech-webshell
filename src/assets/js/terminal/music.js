@@ -1,4 +1,3 @@
-// Music Visualizer Logic
 let audioFile = null;
 let isPlaying = false;
 let audioContext = null;
@@ -78,18 +77,15 @@ function drawVisualizer() {
     const dataArray = new Uint8Array(bufferLength);
     analyser.getByteFrequencyData(dataArray);
     
-    // Clear canvas with fade effect
     ctx.fillStyle = 'rgba(10, 14, 39, 0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     const barWidth = canvas.width / bufferLength * 2.5;
     let x = 0;
     
-    // Draw frequency bars
     for (let i = 0; i < bufferLength; i++) {
         const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
         
-        // Cyberpunk gradient colors
         const colors = [
             `rgba(0, 255, 65, ${dataArray[i] / 255})`,   // green
             `rgba(0, 217, 255, ${dataArray[i] / 255})`,  // cyan
@@ -100,16 +96,13 @@ function drawVisualizer() {
         const colorIndex = Math.floor((i / bufferLength) * colors.length);
         ctx.fillStyle = colors[colorIndex];
         
-        // Main bar
         ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
         
-        // Glow effect
         ctx.shadowBlur = 20;
         ctx.shadowColor = colors[colorIndex];
         ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
         ctx.shadowBlur = 0;
         
-        // Mirror effect
         ctx.globalAlpha = 0.3;
         ctx.fillRect(x, 0, barWidth - 2, barHeight / 2);
         ctx.globalAlpha = 1;
@@ -117,7 +110,6 @@ function drawVisualizer() {
         x += barWidth;
     }
     
-    // Draw ASCII grid overlay
     ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
     ctx.lineWidth = 1;
     const gridSize = 20;
@@ -136,7 +128,6 @@ function drawVisualizer() {
         ctx.stroke();
     }
     
-    // Draw glitch particles
     if (Math.random() > 0.95) {
         const particleX = Math.random() * canvas.width;
         const particleY = Math.random() * canvas.height;
@@ -147,6 +138,5 @@ function drawVisualizer() {
     animationId = requestAnimationFrame(drawVisualizer);
 }
 
-// Draw initial waiting state
 ctx.fillStyle = '#0a0e27';
 ctx.fillRect(0, 0, canvas.width, canvas.height);

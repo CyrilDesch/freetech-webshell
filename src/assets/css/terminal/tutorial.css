@@ -1,0 +1,43 @@
+@media (max-width: 768px) {
+    .tutorial-content {
+        width: 95%;
+        max-width: none;
+    }
+
+    .tutorial-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .tutorial-body {
+        padding: 1.5rem 1rem;
+        min-height: 250px;
+    }
+
+    .tutorial-title {
+        font-size: 1.4rem;
+    }
+
+    .tutorial-text {
+        font-size: 0.9rem;
+    }
+
+    .tutorial-footer {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .tutorial-btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+    }
+
+    .tutorial-prev {
+        order: 2;
+    }
+
+    .tutorial-next {
+        order: 1;
+    }
+}
+

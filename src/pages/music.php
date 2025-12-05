@@ -42,18 +42,19 @@
     }
     
     .iframe-section {
-        border: 2px solid #00ff41;
-        background-color: #0f1419;
-        padding: 0.5rem;
+        border: 3px solid #ff00ff;
+        background-color: #000000;
+        padding: 0;
         margin-bottom: 1.5rem;
-        box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
     }
     
     .iframe-wrapper {
         position: relative;
         width: 100%;
-        padding-bottom: 56.25%; /* 16:9 ratio */
-        min-height: 600px;
+        padding-bottom: 42%; /* ratio proche du screenshot */
+        min-height: 500px;
+        background: #000000;
     }
     
     .iframe-wrapper iframe {
@@ -63,7 +64,7 @@
         width: 100%;
         height: 100%;
         border: none;
-        background: #0a0e27;
+        background: #000000;
     }
     
     .info-box {
@@ -117,7 +118,6 @@
 
 <div class="music-container">
     <div class="music-wrapper">
-        <!-- Header -->
         <div class="music-header">
             <div class="music-header-content">
                 <span class="music-icon">🔊</span>
@@ -128,7 +128,6 @@
             </p>
         </div>
 
-        <!-- IFrame Section -->
         <div class="iframe-section">
             <div class="iframe-wrapper">
                 <iframe 
@@ -140,7 +139,6 @@
             </div>
         </div>
 
-        <!-- Info -->
         <div class="info-box">
             <h3 class="info-title">🎵 VISUALISEUR MUSICAL CYBERPUNK</h3>
             <p class="info-text">
@@ -153,7 +151,6 @@
             </p>
         </div>
 
-        <!-- Back Button -->
         <div class="back-section">
             <a href="?page=home" class="btn-back">
                 <span>⚡</span>

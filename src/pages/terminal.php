@@ -1,4 +1,11 @@
-<link rel="stylesheet" href="assets/css/terminal.css">
+<link rel="stylesheet" href="assets/css/terminal/terminal.css">
+<link rel="stylesheet" href="assets/css/terminal/tutorial.css">
+
+<script>
+if (!sessionStorage.getItem('terminalAccess')) {
+    window.location.href = '?page=login';
+}
+</script>
 
 <div class="terminal-container">
     <div class="terminal-layout">
@@ -38,6 +45,8 @@
                     <div class="terminal-line command">> Establishing secure connection...</div>
                     <div class="terminal-line command">> Welcome to the resistance.</div>
                     <div class="terminal-line"></div>
+                    <div class="terminal-line" id="login-success-message"></div>
+                    <div class="terminal-line"></div>
                     <div class="terminal-line">
 ╔═══════════════════════════════════════════════════════════╗
 ║  ███████╗██████╗ ███████╗███████╗    ████████╗██╗  ██╗  ║
@@ -70,30 +79,12 @@
                 </div>
             </div>
 
-            <div class="feature-grid">
-                <div class="feature-box green">
-                    <div class="feature-icon">💻</div>
-                    <p>Open Source</p>
-                </div>
-                <div class="feature-box cyan">
-                    <div class="feature-icon">🛡️</div>
-                    <p>Sécurité</p>
-                </div>
-                <div class="feature-box magenta">
-                    <div class="feature-icon">⚡</div>
-                    <p>Liberté</p>
-                </div>
-                <div class="feature-box yellow">
-                    <div class="feature-icon">🎮</div>
-                    <p>Contrôle</p>
-                </div>
-            </div>
         </div>
 
         <!-- Music Selection Panel -->
         <div class="music-panel">
             <div class="music-panel-header">
-                <span class="music-panel-icon">🎧</span>
+                <span class="music-panel-icon">♪</span>
                 <h3 class="music-panel-title">SOUND MATRIX</h3>
             </div>
             <p class="music-panel-subtitle">Sélectionnez une piste audio</p>
@@ -103,12 +94,29 @@
             </div>
 
             <div class="music-panel-info">
-                <p class="music-panel-tip">💡 Cliquez sur une piste pour lancer le visualiseur</p>
+                <p class="music-panel-tip">Cliquez sur une piste pour lancer le visualiseur</p>
             </div>
         </div>
     </div>
 </div>
 
-<script src="assets/js/terminal-data.js"></script>
-<script src="assets/js/terminal.js"></script>
-<script src="assets/js/music-player.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const terminalAccess = sessionStorage.getItem('terminalAccess');
+    const distro = sessionStorage.getItem('distro');
+    const score = sessionStorage.getItem('score');
+    
+    if (terminalAccess === 'granted' && distro) {
+        const messageDiv = document.getElementById('login-success-message');
+        messageDiv.innerHTML = `<span style="color: #00ff41;">✓ CONNEXION RÉUSSIE !</span><br>` +
+                              `<span style="color: #00d9ff;">Distribution: ${distro}</span><br>` +
+                              `<span style="color: #ffff00;">Score final: ${score}</span><br>` +
+                              `<span style="color: #00ff41;">Accès terminal déverrouillé ! Bienvenue dans la résistance.</span>`;
+    }
+});
+</script>
+
+<script src="assets/js/terminal/terminal-data.js"></script>
+<script src="assets/js/terminal/terminal.js"></script>
+<script src="assets/js/terminal/music-player.js"></script>
+<script src="assets/js/terminal/tutorial.js"></script>
