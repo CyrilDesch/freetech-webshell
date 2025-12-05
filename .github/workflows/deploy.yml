@@ -55,8 +55,12 @@ jobs:
 
       - name: Install Kustomize
         run: |
-          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-          sudo mv kustomize /usr/local/bin/
+          KUSTOMIZE_VERSION="v5.3.0"
+          curl -sL "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" \
+            | tar -xz -C /tmp
+          sudo mv /tmp/kustomize /usr/local/bin/
+          chmod +x /usr/local/bin/kustomize
+          kustomize version
 
       - name: Update Kubernetes manifests
         env:
@@ -75,9 +79,12 @@ jobs:
           cd k8s/overlays/${OVERLAY}
           # We target the base image name used in base/deployment.yaml
           kustomize edit set image ghcr.io/cyrildesch/freetech-webshell=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${IMAGE_TAG}
+
+          # Update annotation to force pod restart
+          sed -i "s|image.kubernetes.io/change-trigger:.*|image.kubernetes.io/change-trigger: \"${IMAGE_TAG}\"|" deployment-patch.yaml
           cd ../../..
 
-          git add k8s/overlays/${OVERLAY}/kustomization.yaml
+          git add k8s/overlays/${OVERLAY}/kustomization.yaml k8s/overlays/${OVERLAY}/deployment-patch.yaml
 
           # Commit if there are changes
           if ! git diff --staged --quiet; then

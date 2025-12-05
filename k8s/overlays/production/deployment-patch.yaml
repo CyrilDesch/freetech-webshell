@@ -5,7 +5,10 @@ metadata:
 spec:
   replicas: 1
   template:
+    metadata:
+      annotations:
+        image.kubernetes.io/change-trigger: "sha-placeholder"
     spec:
       containers:
         - name: freetech-webshell
-          image: ghcr.io/cyrildesch/freetech-webshell:production
+          imagePullPolicy: Always
