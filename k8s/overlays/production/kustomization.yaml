@@ -10,4 +10,4 @@ patches:
 images:
 - name: ghcr.io/cyrildesch/freetech-webshell
   newName: ghcr.io/cyrildesch/freetech-webshell
-  newTag: sha-2a8bc68
+  newTag: sha-e8b31b9
