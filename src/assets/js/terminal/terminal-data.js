@@ -1,4 +1,3 @@
-// Terminal Commands Data
 const COMMANDS_HELP = `
 Commandes disponibles:
   help        - Affiche cette aide
@@ -14,10 +13,7 @@ Commandes disponibles:
   clear       - Effacer le terminal
   
 Navigation:
-  matrix      - Accéder au visualiseur musical cyberpunk
-  patrix      - Lancer le jeu de libération arcade
-  login       - Alias pour patrix
-  contact     - Ouvrir le canal de communication sécurisé
+  login       - Lancer le jeu de libération arcade
   home        - Retour au terminal principal
 `;
 
@@ -316,8 +312,7 @@ AUDIO:
   le-grand-reportage-de-france-inter/...
 
 Pour plus d'informations ou pour être accompagné dans
-votre démarche, contactez le collectif NIRD via le
-site officiel ou tapez "contact" dans ce terminal.
+votre démarche, visitez le site officiel du collectif NIRD.
 `;
 
 const TOOLS = `

@@ -1,4 +1,3 @@
-// Terminal Logic
 const commandInput = document.getElementById('command-input');
 const terminalOutput = document.getElementById('terminal-output');
 
@@ -50,15 +49,6 @@ function handleCommand(cmd) {
         case 'clear':
             terminalOutput.innerHTML = '';
             break;
-        case 'matrix':
-            addLine('> Chargement du visualiseur musical cyberpunk...');
-            addLine('> Initialisation de la matrice sonore...');
-            addLine('> Redirection en cours...');
-            setTimeout(() => {
-                window.location.href = '?page=music';
-            }, 1000);
-            break;
-        case 'patrix':
         case 'login':
             addLine('> Lancement du jeu de libération arcade...');
             addLine('> Chargement des vaisseaux open source...');
@@ -66,14 +56,6 @@ function handleCommand(cmd) {
             addLine('> Redirection en cours...');
             setTimeout(() => {
                 window.location.href = '?page=login';
-            }, 1000);
-            break;
-        case 'contact':
-            addLine('> Ouverture du canal de communication sécurisé...');
-            addLine('> Établissement de la connexion chiffrée...');
-            addLine('> Redirection en cours...');
-            setTimeout(() => {
-                window.location.href = '?page=contact';
             }, 1000);
             break;
         case 'home':
@@ -95,5 +77,4 @@ commandInput.addEventListener('keypress', function(e) {
     }
 });
 
-// Focus input on page load
 commandInput.focus();

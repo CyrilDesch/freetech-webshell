@@ -1,4 +1,3 @@
-// Tutorial System for first time users
 const TUTORIAL_KEY = 'nird_tutorial_completed';
 
 const TUTORIAL_STEPS = [
@@ -36,17 +35,6 @@ Exemple : tapez <span style="color: #00ff41;">help</span> pour voir toutes les c
 
 <span style="color: #ffff00;">Conseil :</span> Commencez par <span style="color: #00ff41;">nird</span> puis <span style="color: #00ff41;">contexte</span> pour comprendre les enjeux`,
         hint: "Prêt à explorer ?"
-    },
-    {
-        title: "Au-delà du terminal",
-        content: `Ce site propose aussi d'autres expériences :
-
-<span style="color: #ff00ff;">matrix</span>  - Visualiseur musical cyberpunk
-<span style="color: #ff00ff;">patrix</span> - Jeu de libération arcade
-<span style="color: #ff00ff;">contact</span> - Contactez l'équipe NIRD
-
-<span style="color: #00d9ff;">Commencez votre exploration dès maintenant !</span>`,
-        hint: "Cliquez sur Terminer pour commencer"
     }
 ];
 
@@ -99,7 +87,6 @@ class Tutorial {
         `;
         document.body.appendChild(this.modal);
 
-        // Event listeners
         document.getElementById('tutorial-skip').addEventListener('click', () => this.skip());
         document.getElementById('tutorial-prev').addEventListener('click', () => this.prevStep());
         document.getElementById('tutorial-next').addEventListener('click', () => this.nextStep());
@@ -111,15 +98,12 @@ class Tutorial {
         this.currentStep = stepIndex;
         const step = TUTORIAL_STEPS[stepIndex];
 
-        // Update content
         this.modal.querySelector('.tutorial-title').textContent = step.title;
         this.modal.querySelector('.tutorial-text').innerHTML = step.content;
         this.modal.querySelector('.tutorial-hint').textContent = step.hint;
         
-        // Update step indicator
         this.modal.querySelector('.tutorial-step-current').textContent = stepIndex + 1;
 
-        // Update buttons
         const prevBtn = document.getElementById('tutorial-prev');
         const nextBtn = document.getElementById('tutorial-next');
 
@@ -162,29 +146,24 @@ class Tutorial {
             this.modal.remove();
             this.modal = null;
         }
-        // Focus on terminal input after closing
         const commandInput = document.getElementById('command-input');
         if (commandInput) {
             commandInput.focus();
         }
     }
 
-    // Method to reset tutorial (for testing or user request)
     static reset() {
         localStorage.removeItem(TUTORIAL_KEY);
     }
 }
 
-// Initialize tutorial when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    // Small delay to ensure terminal is fully loaded
     setTimeout(() => {
         const tutorial = new Tutorial();
         tutorial.start();
     }, 500);
 });
 
-// Expose reset function globally for console debugging
 window.resetTutorial = () => {
     Tutorial.reset();
     location.reload();

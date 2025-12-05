@@ -1,6 +1,4 @@
-// Music Player Controller for Terminal
 (function () {
-  // Music tracks library - using local files
   const MUSIC_TRACKS = [
     {
       id: 'hugo',
@@ -52,23 +50,19 @@
     }
   ];
 
-  // Cache for data URLs to avoid re-fetching
   const dataUrlCache = {};
 
-  // State
   let currentTrack = null;
   let isPlaying = false;
   let iframeReady = false;
   let isLoading = false;
 
-  // DOM Elements
   const trackList = document.getElementById('music-track-list');
   const playerEmbed = document.getElementById('music-player-embed');
   const playerTitle = document.getElementById('music-player-title');
   const musicIframe = document.getElementById('music-iframe');
   const closeBtn = document.getElementById('music-player-close');
 
-  // Initialize track list
   function initTrackList() {
     if (!trackList) return;
 
@@ -83,7 +77,6 @@
             </div>
         `).join('');
 
-    // Add click listeners
     trackList.querySelectorAll('.music-track').forEach(el => {
       el.addEventListener('click', () => {
         const trackId = el.dataset.trackId;
@@ -95,15 +88,12 @@
     });
   }
 
-  // Select and play a track
   function selectTrack(track) {
-    // Prevent rapid clicks while loading
     if (isLoading) {
       addTerminalLine('> Chargement en cours, veuillez patienter...', true);
       return;
     }
 
-    // If same track, just toggle play/pause
     if (currentTrack && currentTrack.id === track.id) {
       if (isPlaying) {
         stopAudio();
@@ -116,38 +106,29 @@
     currentTrack = track;
     isLoading = true;
 
-    // Update active state in list
     trackList.querySelectorAll('.music-track').forEach(el => {
       el.classList.toggle('active', el.dataset.trackId === track.id);
     });
 
-    // Show player
     playerEmbed.style.display = 'block';
     playerTitle.textContent = `${track.icon} ${track.name} - ${track.artist}`;
 
-    // Add terminal output
     addTerminalLine('> Chargement audio: ' + track.name, true);
     addTerminalLine('> Artiste: ' + track.artist, true);
     addTerminalLine('> Initialisation du visualiseur...', true);
 
-    // Reload iframe to reset AudioContext (prevents "already connected" error)
     reloadIframeAndPlay(track.url);
   }
 
-  // Reload iframe and play track
   function reloadIframeAndPlay(trackUrl) {
-    // Store the iframe src
     const iframeSrc = musicIframe.src;
 
-    // Reset iframe ready state
     iframeReady = false;
 
-    // Reload iframe by resetting src
     musicIframe.src = '';
     setTimeout(() => {
       musicIframe.src = iframeSrc;
 
-      // Wait for iframe to be ready, then send audio
       const checkReady = setInterval(() => {
         if (iframeReady) {
           clearInterval(checkReady);
@@ -155,27 +136,22 @@
         }
       }, 100);
 
-      // Timeout after 5 seconds
       setTimeout(() => {
         clearInterval(checkReady);
         if (!iframeReady) {
-          // Try anyway
           sendAudioUrl(trackUrl);
         }
       }, 5000);
     }, 100);
   }
 
-  // Send message to iframe
   function sendToIframe(message) {
     if (musicIframe && musicIframe.contentWindow) {
       musicIframe.contentWindow.postMessage(message, '*');
     }
   }
 
-  // Fetch audio file and convert to data URL for cross-origin iframe
   async function fetchAudioAsDataUrl(url) {
-    // Check cache first
     if (dataUrlCache[url]) {
       addTerminalLine('> Utilisation du cache audio...', true);
       return dataUrlCache[url];
@@ -191,7 +167,6 @@
 
       const blob = await response.blob();
 
-      // Convert blob to data URL (base64) which works cross-origin
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -210,9 +185,7 @@
     }
   }
 
-  // Send audio URL to iframe
   async function sendAudioUrl(url) {
-    // Fetch the audio and convert to data URL (base64)
     const dataUrl = await fetchAudioAsDataUrl(url);
 
     if (dataUrl) {
@@ -220,7 +193,6 @@
       sendToIframe({ type: 'setAudioUrl', url: dataUrl });
       addTerminalLine('> Audio chargé. Démarrage...', true);
 
-      // Auto-start after setting URL
       setTimeout(() => {
         startAudio();
         isLoading = false;
@@ -230,28 +202,24 @@
     }
   }
 
-  // Start audio playback
   function startAudio() {
     sendToIframe({ type: 'startAudio' });
     isPlaying = true;
     addTerminalLine('> ▶ Lecture en cours...', true);
   }
 
-  // Stop audio playback
   function stopAudio() {
     sendToIframe({ type: 'stopAudio' });
     isPlaying = false;
     addTerminalLine('> ■ Lecture arrêtée.', true);
   }
 
-  // Close player
   function closePlayer() {
     stopAudio();
     playerEmbed.style.display = 'none';
     currentTrack = null;
     isLoading = false;
 
-    // Remove active state
     trackList.querySelectorAll('.music-track').forEach(el => {
       el.classList.remove('active');
     });
@@ -259,7 +227,6 @@
     addTerminalLine('> Visualiseur fermé.', true);
   }
 
-  // Add line to terminal output
   function addTerminalLine(text, isCommand = false) {
     const terminalOutput = document.getElementById('terminal-output');
     if (!terminalOutput) return;
@@ -271,9 +238,7 @@
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
   }
 
-  // Listen for messages from iframe
   window.addEventListener('message', function (event) {
-    // Handle iframe messages
     if (event.data) {
       switch (event.data.type) {
         case 'ready':
@@ -296,12 +261,10 @@
     }
   });
 
-  // Event listeners
   if (closeBtn) {
     closeBtn.addEventListener('click', closePlayer);
   }
 
-  // Initialize
   initTrackList();
 
 })();

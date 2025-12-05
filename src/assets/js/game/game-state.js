@@ -1,9 +1,8 @@
-// Game State Variables
 let gameState = 'select'; // select, playing, gameover, victory
 let selectedShip = null;
 let selectedDistro = null;
 let playerX = 350;
-let playerY = 450;
+let playerY = 0;
 let enemies = [];
 let bullets = [];
 let powerUps = [];
@@ -18,6 +17,18 @@ let isReloading = false;
 let hasShield = false;
 let gameLoop = null;
 let lastShotTime = 0;
+let enemySpawnQueue = [];
+let lastSpawnTime = 0;
+const SPAWN_INTERVAL = 800;
+let waveTransitioning = false;
 
-const canvas = document.getElementById('game-canvas');
-const ctx = canvas.getContext('2d');
+let canvas, ctx;
+
+function initGameCanvas() {
+    canvas = document.getElementById('gameCanvas');
+    if (canvas) {
+        ctx = canvas.getContext('2d');
+        return true;
+    }
+    return false;
+}

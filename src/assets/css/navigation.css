@@ -1,0 +1,153 @@
+.classic-nav {
+    background: white;
+    border-bottom: 2px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.classic-nav .nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.classic-nav .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+}
+
+.classic-nav .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.classic-nav .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.classic-nav .logo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+}
+
+.classic-nav .logo-icon span {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.classic-nav .logo-text h1 {
+    color: #2563eb;
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.classic-nav .logo-text p {
+    color: #1e40af;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.classic-nav .nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.classic-nav .nav-links a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.classic-nav .nav-links a.active {
+    color: #2563eb;
+}
+
+.classic-nav .nav-links a:not(.active) {
+    color: #334155;
+}
+
+.classic-nav .mode-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: white;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-size: 1.125rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.classic-nav .mode-switch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cyberpunk-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cyberpunk-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00d9ff;
+    color: #00d9ff;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.cyberpunk-nav-btn:hover {
+    background: rgba(0, 217, 255, 0.1);
+    transform: translateX(-2px);
+}
+
+.classic-footer {
+    background: #1e293b;
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.classic-footer .footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.classic-footer p {
+    margin-bottom: 0.5rem;
+}
+
+.classic-footer .footer-copyright {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.classic-footer .footer-license {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-top: 0.5rem;
+}
