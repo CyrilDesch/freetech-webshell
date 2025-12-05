@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freetech-webshell
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: freetech-webshell
+          image: ghcr.io/cyrildesch/freetech-webshell:production

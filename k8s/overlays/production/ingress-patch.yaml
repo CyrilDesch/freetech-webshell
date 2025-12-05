@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: freetech-webshell
+spec:
+  rules:
+    - host: shell.cyrildeschamps.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: freetech-webshell
+                port:
+                  number: 80
