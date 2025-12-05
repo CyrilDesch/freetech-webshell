@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="assets/css/terminal/terminal.css">
 <link rel="stylesheet" href="assets/css/terminal/tutorial.css">
 
-<script>
-if (!sessionStorage.getItem('terminalAccess')) {
-    window.location.href = '?page=login';
-}
-</script>
-
 <div class="terminal-container">
     <div class="terminal-layout">
         <!-- Terminal Section -->
