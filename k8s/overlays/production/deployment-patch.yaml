@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       annotations:
-        image.kubernetes.io/change-trigger: "sha-9a520a9"
+        image.kubernetes.io/change-trigger: "sha-0472d48"
     spec:
       containers:
         - name: freetech-webshell
