@@ -1,13 +1,20 @@
 // Game Logic Functions
 
-function startGame(id, icon, color, speed) {
-    selectedShip = { id, icon, color, speed };
+function startGame(distroId) {
+    selectedDistro = DISTRIBUTIONS[distroId];
+    selectedShip = {
+        id: distroId,
+        icon: selectedDistro.icon,
+        color: selectedDistro.color,
+        speed: selectedDistro.speed
+    };
+    requiredWaves = selectedDistro.difficulty;
     gameState = 'playing';
     playerX = CANVAS_WIDTH / 2 - PLAYER_SIZE / 2;
     
     document.getElementById('selection-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'block';
-    document.getElementById('ship-display').textContent = icon + ' ' + id.toUpperCase();
+    document.getElementById('ship-display').textContent = selectedShip.icon + ' ' + selectedDistro.name;
     
     score = 0;
     lives = 3;
@@ -74,6 +81,40 @@ function gameOver() {
     document.getElementById('gameover-screen').style.display = 'block';
     document.getElementById('final-score').textContent = score;
     document.getElementById('final-wave').textContent = wave - 1;
+}
+
+function gameVictory() {
+    gameState = 'victory';
+    cancelAnimationFrame(gameLoop);
+    
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('victory-screen').style.display = 'block';
+    document.getElementById('victory-score').textContent = score;
+    document.getElementById('victory-distro').textContent = selectedDistro.name;
+    document.getElementById('victory-waves').textContent = requiredWaves;
+    
+    // Sauvegarder les informations du jeu
+    sessionStorage.setItem('distro', selectedDistro.name);
+    sessionStorage.setItem('score', score);
+    
+    // Gérer le formulaire de login
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Vérifier les identifiants
+        if (username === 'root' && password === 'toor') {
+            // Accès accordé
+            sessionStorage.setItem('terminalAccess', 'granted');
+            window.location.href = '?page=terminal';
+        } else {
+            // Mauvais identifiants
+            alert('❌ Identifiants incorrects ! Essayez root/toor');
+        }
+    });
 }
 
 function resetGame() {

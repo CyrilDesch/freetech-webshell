@@ -20,14 +20,29 @@ function handleCommand(cmd) {
         case 'help':
             addLine(COMMANDS_HELP);
             break;
-        case 'about':
-            addLine(ABOUT);
+        case 'nird':
+            addLine(ABOUT_NIRD);
             break;
-        case 'why':
-            addLine(WHY_OPENSOURCE);
+        case 'contexte':
+            addLine(CONTEXTE);
             break;
-        case 'freedom':
-            addLine(FREEDOM_MANIFEST);
+        case 'piliers':
+            addLine(PILIERS);
+            break;
+        case 'actions':
+            addLine(ACTIONS);
+            break;
+        case 'acteurs':
+            addLine(ACTEURS);
+            break;
+        case 'benefices':
+            addLine(BENEFICES);
+            break;
+        case 'etapes':
+            addLine(ETAPES);
+            break;
+        case 'ressources':
+            addLine(RESSOURCES);
             break;
         case 'tools':
             addLine(TOOLS);

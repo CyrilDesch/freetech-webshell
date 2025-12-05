@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="assets/css/terminal.css">
+<link rel="stylesheet" href="assets/css/tutorial.css">
+
+<script>
+// Vérifier l'accès au terminal
+if (!sessionStorage.getItem('terminalAccess')) {
+    // Rediriger vers la page de login si pas d'accès
+    window.location.href = '?page=login';
+}
+</script>
 
 <div class="terminal-container">
     <div class="terminal-layout">
@@ -38,6 +47,8 @@
                     <div class="terminal-line command">> Establishing secure connection...</div>
                     <div class="terminal-line command">> Welcome to the resistance.</div>
                     <div class="terminal-line"></div>
+                    <div class="terminal-line" id="login-success-message"></div>
+                    <div class="terminal-line"></div>
                     <div class="terminal-line">
 ╔═══════════════════════════════════════════════════════════╗
 ║  ███████╗██████╗ ███████╗███████╗    ████████╗██╗  ██╗  ║
@@ -72,20 +83,20 @@
 
             <div class="feature-grid">
                 <div class="feature-box green">
-                    <div class="feature-icon">💻</div>
-                    <p>Open Source</p>
+                    <div class="feature-icon">I</div>
+                    <p>Inclusif</p>
                 </div>
                 <div class="feature-box cyan">
-                    <div class="feature-icon">🛡️</div>
-                    <p>Sécurité</p>
+                    <div class="feature-icon">R</div>
+                    <p>Responsable</p>
                 </div>
                 <div class="feature-box magenta">
-                    <div class="feature-icon">⚡</div>
-                    <p>Liberté</p>
+                    <div class="feature-icon">D</div>
+                    <p>Durable</p>
                 </div>
                 <div class="feature-box yellow">
-                    <div class="feature-icon">🎮</div>
-                    <p>Contrôle</p>
+                    <div class="feature-icon">N</div>
+                    <p>Numérique</p>
                 </div>
             </div>
         </div>
@@ -93,7 +104,7 @@
         <!-- Music Selection Panel -->
         <div class="music-panel">
             <div class="music-panel-header">
-                <span class="music-panel-icon">🎧</span>
+                <span class="music-panel-icon">♪</span>
                 <h3 class="music-panel-title">SOUND MATRIX</h3>
             </div>
             <p class="music-panel-subtitle">Sélectionnez une piste audio</p>
@@ -103,12 +114,33 @@
             </div>
 
             <div class="music-panel-info">
-                <p class="music-panel-tip">💡 Cliquez sur une piste pour lancer le visualiseur</p>
+                <p class="music-panel-tip">Cliquez sur une piste pour lancer le visualiseur</p>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+// Afficher le message de connexion réussie si venant du jeu
+window.addEventListener('DOMContentLoaded', function() {
+    const terminalAccess = sessionStorage.getItem('terminalAccess');
+    const distro = sessionStorage.getItem('distro');
+    const score = sessionStorage.getItem('score');
+    
+    if (terminalAccess === 'granted' && distro) {
+        const messageDiv = document.getElementById('login-success-message');
+        messageDiv.innerHTML = `<span style="color: #00ff41;">✓ CONNEXION RÉUSSIE !</span><br>` +
+                              `<span style="color: #00d9ff;">Distribution: ${distro}</span><br>` +
+                              `<span style="color: #ffff00;">Score final: ${score}</span><br>` +
+                              `<span style="color: #00ff41;">Accès terminal déverrouillé ! Bienvenue dans la résistance.</span>`;
+        
+        // Nettoyer les données de session après affichage
+        // (optionnel - garder pour permettre de revenir au terminal)
+    }
+});
+</script>
+
 <script src="assets/js/terminal-data.js"></script>
 <script src="assets/js/terminal.js"></script>
 <script src="assets/js/music-player.js"></script>
+<script src="assets/js/tutorial.js"></script>

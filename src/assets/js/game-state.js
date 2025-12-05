@@ -1,8 +1,9 @@
 // Game State Variables
-let gameState = 'select'; // select, playing, gameover
+let gameState = 'select'; // select, playing, gameover, victory
 let selectedShip = null;
-let playerX = 400;
-let playerY = 540;
+let selectedDistro = null;
+let playerX = 350;
+let playerY = 450;
 let enemies = [];
 let bullets = [];
 let powerUps = [];
@@ -11,6 +12,7 @@ let lives = 3;
 let ammo = 30;
 let maxAmmo = 30;
 let wave = 1;
+let requiredWaves = 10;
 let enemyDirection = 1;
 let isReloading = false;
 let hasShield = false;

@@ -5,7 +5,7 @@ session_start();
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Validation des pages autorisées
-$allowedPages = ['home', 'music', 'login', 'contact'];
+$allowedPages = ['home', 'music', 'login', 'contact', 'terminal'];
 if (!in_array($page, $allowedPages)) {
     $page = 'home';
 }

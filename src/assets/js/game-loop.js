@@ -80,6 +80,12 @@ function startGameLoop() {
         
         // Check if wave cleared
         if (enemies.every(e => !e.alive)) {
+            // Check victory condition BEFORE incrementing wave
+            if (wave >= requiredWaves) {
+                gameVictory();
+                return;
+            }
+            
             wave++;
             ammo = Math.min(ammo + 15, maxAmmo);
             setTimeout(() => {

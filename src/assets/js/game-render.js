@@ -2,7 +2,7 @@
 
 function updateHUD() {
     document.getElementById('score-display').textContent = score;
-    document.getElementById('wave-display').textContent = wave;
+    document.getElementById('wave-display').textContent = wave + '/' + requiredWaves;
     document.getElementById('ammo-display').textContent = ammo + '/' + maxAmmo;
     document.getElementById('lives-display').textContent = '❤️'.repeat(lives);
     document.getElementById('shield-indicator').textContent = hasShield ? '🛡️' : '';
