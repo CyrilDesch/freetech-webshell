@@ -3,6 +3,14 @@
   // Music tracks library - using local files
   const MUSIC_TRACKS = [
     {
+      id: 'hugo',
+      name: 'Matmatah - Les Moutons',
+      artist: 'Matmatah',
+      duration: '3:48',
+      url: 'assets/audio/track-hugo.mp3',
+      icon: '🐑'
+    },
+    {
       id: 'meow-carless-whisper',
       name: 'Meow Carless Whisper',
       artist: 'Meow Carless',
@@ -41,38 +49,6 @@
       duration: '4:08',
       url: 'assets/audio/track-4.mp3',
       icon: '✊'
-    },
-    {
-      id: 'encrypted-vibes',
-      name: 'Encrypted Vibes',
-      artist: 'Crypto Synth',
-      duration: '3:56',
-      url: 'assets/audio/track-5.mp3',
-      icon: '🔐'
-    },
-    {
-      id: 'terminal-dreams',
-      name: 'Terminal Dreams',
-      artist: 'Shell Script',
-      duration: '4:45',
-      url: 'assets/audio/track-6.mp3',
-      icon: '⌨️'
-    },
-    {
-      id: 'firewall-break',
-      name: 'Firewall Break',
-      artist: 'Zero Day',
-      duration: '3:28',
-      url: 'assets/audio/track-7.mp3',
-      icon: '🔥'
-    },
-    {
-      id: 'open-protocol',
-      name: 'Open Protocol',
-      artist: 'TCP/IP Underground',
-      duration: '5:33',
-      url: 'assets/audio/track-8.mp3',
-      icon: '🌐'
     }
   ];
 
