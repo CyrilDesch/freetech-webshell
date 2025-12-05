@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Enable Apache mod_rewrite and mod_headers
+RUN a2enmod rewrite headers
 
 # Copy application files
 COPY src/ /var/www/html/

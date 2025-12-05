@@ -1,0 +1,22 @@
+# Désactiver le cache pour les fichiers statiques (JS, CSS)
+<IfModule mod_headers.c>
+    # Désactiver le cache pour tous les fichiers JS et CSS
+    <FilesMatch "\.(js|css)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Désactiver le cache pour les fichiers HTML/PHP
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# Activer mod_rewrite (déjà fait dans Dockerfile mais au cas où)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
