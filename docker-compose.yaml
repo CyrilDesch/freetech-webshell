@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: freetech-web
+    ports:
+      - "8081:80"
+    volumes:
+      - ./src:/var/www/html
+    restart: unless-stopped
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
